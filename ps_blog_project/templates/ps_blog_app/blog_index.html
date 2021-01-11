@@ -1,0 +1,24 @@
+{% extends 'ps_blog_app/base.html'%}
+
+{% block body_block %}
+<div class='col-md-8 offset-md-2'>
+    <h1>ps blogs</h1>
+    
+    <hr>
+    {% for post in posts %}
+    <!-- link to the blog_detail view and show the post title -->
+    <h2><a href="{% url 'ps_blog_app:blog_detail' post.pk %}">{{ post.title }}</a></h2>
+    <small>
+        <!-- show the date the post was created. -->
+        {{ post.created_on.date }} |&nbsp;
+        Categories:&nbsp;
+        <!-- loop through all categories assigned to the post. -->
+        {% for category in post.categories.all %}
+        <a href="{% url 'ps_blog_app:blog_c' category.name %}">{{ category.name }}</a>&nbsp; 
+        {% endfor %}
+    </small>
+    <!-- slice is a django template filter that will cut off the post body at 400 chars. -->
+    <p>{{ post.body | slice:":400" }}...</p>
+    {% endfor %}
+</div>
+{% endblock %}

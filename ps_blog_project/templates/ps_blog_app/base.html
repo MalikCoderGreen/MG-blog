@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 {% load static %}
 <html>
 
@@ -19,7 +18,7 @@
     <link rel="stylesheet" href="{% static '/css/ps_blog_master.css' %}"/>
 </head>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #2995e2;">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#covid-info-div" aria-controls="covid-info-div" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -27,10 +26,9 @@
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="covid-info-div">
         <div class="navbar-nav float-right text-right">
-            <a class="nav-link" href="{% url 'index' %}">Home</a>
-          <a class="nav-link" href="{% url 'ps_blog_app:login_page' %}">login</a>
-          <!-- <a class="nav-link" href="{% url 'admin:index' %}">Admin</a> -->
-          <a class="nav-link" href="{% url 'ps_blog_app:'upcoming_titles %}">upcoming titles</a>
+            <a class="nav-link" href="{% url 'blog_index' %}">Home</a>
+          <a class="nav-link" href="{% url 'ps_blog_app:login' %}">login</a> 
+          <a class="nav-link" href="{% url 'ps_blog_app:upcoming' %}">upcoming titles</a>
         </div>
       </div>
     </div>
