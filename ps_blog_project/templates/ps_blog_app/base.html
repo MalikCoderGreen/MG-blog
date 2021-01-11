@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+    <!-- predefined jumbotron-->
+    <style type="text/css">
+        .jumbotron {
+          padding: 4rem 2rem;
+          margin-bottom: 2rem;
+          background-color: var(--bs-light);
+          border-radius: .3rem;  
+        }
+    </style>
+    <!-- Bootstrap cdn links-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static '/css/ps_blog_master.css' %}"/>
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#covid-info-div" aria-controls="covid-info-div" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="covid-info-div">
+        <div class="navbar-nav float-right text-right">
+            <a class="nav-link" href="{% url 'index' %}">Home</a>
+          <a class="nav-link" href="{% url 'ps_blog_app:login_page' %}">login</a>
+          <!-- <a class="nav-link" href="{% url 'admin:index' %}">Admin</a> -->
+          <a class="nav-link" href="{% url 'ps_blog_app:'upcoming_titles %}">upcoming titles</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+{%block body_block%}
+  <body>
+      
+  </body>
+  {% endblock %}
+  <!-- Jquery for nav icon -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </html>
