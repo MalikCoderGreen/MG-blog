@@ -19,9 +19,9 @@ from ps_blog_app import views
 
 urlpatterns = [
     path('', views.blog_index, name='blog_index'),
-    path('login_page', views.login_page, name='login'),
-    path('upcoming_titles/', views.upcoming_titles, name='upcoming'),
     path('ps_blog_app/', include('ps_blog_app.urls')),
-    path('<category>/', views.blog_category, name='blog_c'),
+    path('<category>/', views.blog_category, name='blog_category'),
+    path('register/', views.register, name='register'),
+    path('login_page', views.login_page, name='login'),
     path('admin/', admin.site.urls),
 ]

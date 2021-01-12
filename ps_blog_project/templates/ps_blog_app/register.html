@@ -1,1 +1,30 @@
-{% extends 'ps_blog_app/register.html' %}
+{% extends 'ps_blog_app/base.html' %}
+{% block body_block %}
+
+
+<div class='jumbotron'>
+    <div class='col-md-8 offset-md-2'>
+        <h1 id='register_header'>registration page</h1>
+        <hr>
+    </div>
+</div>
+    {% if registered %}
+    <div class='col-md-8 offset-md-2'>
+      <h1>Thank you for registering </h1>
+      <h3>You can start making some posts!</h3>
+   </div>
+
+    {% else %}
+    <div class='col-md-8 offset-md-2'>
+    <h3>Fill out the form and become a member of ps blogs!</h3>
+    <form method='post' enctype='multipart/form-data'>
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        <input class='btn btn-primary' type='submit' value='register'>  
+    </form>
+    </div>
+
+    {% endif %}
+    
+
+{% endblock %}
