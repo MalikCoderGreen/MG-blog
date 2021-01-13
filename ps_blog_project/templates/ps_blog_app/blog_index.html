@@ -1,6 +1,45 @@
-{% extends 'ps_blog_app/base.html'%}
-
+<!DOCTYPE html>
+{% load static %}
+<head>
+    <!-- predefined jumbotron-->
+    <style type="text/css">
+        .jumbotron {
+          padding: 4rem 2rem;
+          margin-bottom: 2rem;
+          background-color: var(--bs-light);
+          border-radius: .3rem;  
+        }
+    </style>
+    <!-- Bootstrap cdn links-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static '/css/ps_blog_master.css' %}"/>
+</head>
 {% block body_block %}
+{% if logged_in %}
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #2995e2;">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#covid-info-div" aria-controls="covid-info-div" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="covid-info-div">
+        <div class="navbar-nav">
+          <a class="nav-link" id='home_link' href="{% url 'blog_index' %}">Home</a>
+          <a class="nav-link" id='login_link' href="{% url 'ps_blog_app:login' %}">login</a> 
+          <a class="nav-link" id='upcoming_link' href="{% url 'ps_blog_app:upcoming' %}">upcoming titles</a>
+          <a class="nav-link" id='register_link' href="{% url 'ps_blog_app:register' %}">register</a>
+        </div>
+        <span id="user_name" class="navbar-text">
+            {{ user_name }}
+        </span>
+        <span class="nav-link">
+           <a id = "log_out" href="{% url 'logout' %}"><strong>logout</strong></a>
+        </span>
+                
+      </div>
+    </div>
+</nav>
 <div class='col-md-8 offset-md-2'>
     <h1 id='blog_index_header'>ps blogs</h1>
     
@@ -21,4 +60,46 @@
     <p>{{ post.body | slice:":400" }}...</p>
     {% endfor %}
 </div>
+
+{% else %}
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #2995e2;">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#covid-info-div" aria-controls="covid-info-div" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="covid-info-div">
+        <div class="navbar-nav">
+          <a class="nav-link" id='home_link' href="{% url 'blog_index' %}">Home</a>
+          <a class="nav-link" id='login_link' href="{% url 'ps_blog_app:login' %}">login</a> 
+          <a class="nav-link" id='upcoming_link' href="{% url 'ps_blog_app:upcoming' %}">upcoming titles</a>
+          <a class="nav-link" id='register_link' href="{% url 'ps_blog_app:register' %}">register</a>
+        </div>
+      </div>
+    </div>
+</nav>
+<div class='col-md-8 offset-md-2'>
+    <h1 id='blog_index_header'>ps blogs</h1>
+    
+    <hr>
+    {% for post in posts %}
+    <!-- link to the blog_detail view and show the post title -->
+    <h2><a href="{% url 'ps_blog_app:blog_detail' post.pk %}">{{ post.title }}</a></h2>
+    <small>
+        <!-- show the date the post was created. -->
+        {{ post.created_on.date }} |&nbsp;
+        Categories:&nbsp;
+        <!-- loop through all categories assigned to the post. -->
+        {% for category in post.categories.all %}
+        <a href="{% url 'ps_blog_app:blog_category' category.name %}">{{ category.name }}</a>&nbsp; 
+        {% endfor %}
+    </small>
+    <!-- slice is a django template filter that will cut off the post body at 400 chars. -->
+    <p>{{ post.body | slice:":400" }}...</p>
+    {% endfor %}
+</div>
+{% endif %}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 {% endblock %}

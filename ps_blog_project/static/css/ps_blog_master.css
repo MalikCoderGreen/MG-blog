@@ -1,4 +1,4 @@
-#home_link, #login_link, #upcoming_link, #register_link{
+#home_link, #login_link, #upcoming_link, #register_link, #user_name{
     color: white;
 }
 
@@ -9,4 +9,11 @@
 
 #upcoming_header{
     color: #2995e2;
+}
+
+/*
+login.html
+*/
+#log_out{
+    color: white;
 }

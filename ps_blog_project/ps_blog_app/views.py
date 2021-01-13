@@ -1,22 +1,32 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from ps_blog_app.models import category, blog_post, comment, User
 from ps_blog_app.forms import comment_form, UserProfileInfoForm, login_form
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def blog_index(request):
+    logged_in = False
     posts = blog_post.objects.all().order_by('-created_on')
     context = {
         "posts": posts,
     }
-    return render(request, 'ps_blog_app/blog_index.html', context)
+    if request.user.get_username() != None:
+        username = request.user.username
+        print(username, "is logged in!")
+        logged_in = True
+        return render(request, 'ps_blog_app/blog_index.html', {"posts":posts, "user_name":username, "logged_in":logged_in})
+    #new_context = context | kwargs
+    else:
+        return render(request, 'ps_blog_app/blog_index.html', context)
 
 # Login page view. 
 def login_page(request): 
     logged_in = False
+        
     logged_in_form = login_form()
     # If user tried to POST, authenticate their credentials.
     if request.method == 'POST': 
@@ -28,9 +38,16 @@ def login_page(request):
         # If user is registered in database. 
         if user: 
             if user.is_active: 
-                login(request, user)
+                login(request, user) # login the user. 
                 logged_in = True
-                return HttpResponseRedirect(reverse('blog_index'))
+                #return 
+
+                posts = blog_post.objects.all().order_by('-created_on')
+                return HttpResponseRedirect(reverse('blog_index'), {'username':username, 'logged_in':logged_in})
+                #return render(request, 'ps_blog_app/blog_index.html', {'user_name':request.user.get_username(), 'posts':posts, 'logged_in':logged_in})
+                #return redirect('blog_index', {'user_name':request.user.get_username(), 'posts':posts, 'logged_in':logged_in})
+        
+        # Need to change this to show an error message on login page. 
         else: 
             print("Someone tried to login and failed!")
             print("Username: {} and password {}".format(username, password))
@@ -41,6 +58,12 @@ def login_page(request):
     else:
         logged_in = True 
         return render(request, 'ps_blog_app/login.html', {'login_form':logged_in_form, 'logged_in':logged_in})
+
+@login_required
+def user_logout(request):
+    print("HERE in user_logout view")
+    logout(request)
+    return HttpResponseRedirect(reverse('blog_index'))
 
 # Used to add new users to be able to post blogs. 
 def register(request): 

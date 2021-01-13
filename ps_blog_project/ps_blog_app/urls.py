@@ -10,5 +10,6 @@ urlpatterns = [
     path('upcoming_titles/', views.upcoming_titles, name='upcoming'),
     path('register/', views.register, name='register'),
     path('login_page/', views.login_page, name='login'),
+    path('logout_page/', views.user_logout, name='logout'),
     path('<category>/', views.blog_category, name='blog_category'),
 ]
