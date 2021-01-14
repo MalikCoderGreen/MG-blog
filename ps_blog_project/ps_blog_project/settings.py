@@ -27,9 +27,9 @@ SECRET_KEY = '*izezmd80uiud%bxprq83py7vo(^gkbt5h1l08+sj9^4=j_zf1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['malikcodergreen.pythonanywhere.com', '127.0.0.1']
 
-
+LOGOUT_REDIRECT_URL = '/'
 # Application definition
 
 INSTALLED_APPS = [

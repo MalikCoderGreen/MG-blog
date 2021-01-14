@@ -7,21 +7,16 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
+
+
 # Create your views here.
 def blog_index(request):
-    logged_in = False
+    #logged_in = False
     posts = blog_post.objects.all().order_by('-created_on')
     context = {
         "posts": posts,
     }
-    if request.user.get_username() != None:
-        username = request.user.username
-        print(username, "is logged in!")
-        logged_in = True
-        return render(request, 'ps_blog_app/blog_index.html', {"posts":posts, "user_name":username, "logged_in":logged_in})
-    #new_context = context | kwargs
-    else:
-        return render(request, 'ps_blog_app/blog_index.html', context)
+    return render(request, 'ps_blog_app/blog_index.html', context)
 
 # Login page view. 
 def login_page(request): 
@@ -43,9 +38,7 @@ def login_page(request):
                 #return 
 
                 posts = blog_post.objects.all().order_by('-created_on')
-                return HttpResponseRedirect(reverse('blog_index'), {'username':username, 'logged_in':logged_in})
-                #return render(request, 'ps_blog_app/blog_index.html', {'user_name':request.user.get_username(), 'posts':posts, 'logged_in':logged_in})
-                #return redirect('blog_index', {'user_name':request.user.get_username(), 'posts':posts, 'logged_in':logged_in})
+                return HttpResponseRedirect(reverse('blog_index'))
         
         # Need to change this to show an error message on login page. 
         else: 
@@ -60,8 +53,7 @@ def login_page(request):
         return render(request, 'ps_blog_app/login.html', {'login_form':logged_in_form, 'logged_in':logged_in})
 
 @login_required
-def user_logout(request):
-    print("HERE in user_logout view")
+def user_logout(request): 
     logout(request)
     return HttpResponseRedirect(reverse('blog_index'))
 

@@ -23,6 +23,6 @@ urlpatterns = [
     path('categories/<category>/', views.blog_category, name='blog_category'),
     path('register/', views.register, name='register'),
     path('login_page', views.login_page, name='login'),
-    path('logout_page/', views.user_logout, name='logout'),
+    path('logout/', views.user_logout, name='logout'),
     path('admin/', admin.site.urls),
 ]
