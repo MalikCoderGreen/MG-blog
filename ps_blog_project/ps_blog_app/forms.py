@@ -1,6 +1,23 @@
 from django import forms
-from ps_blog_app.models import UserProfileInfo
+from ps_blog_app.models import UserProfileInfo, blog_post
 from django.contrib.auth.models import User
+
+
+# To allow registered users to create a post. 
+class create_blog_form(forms.Form): 
+    title = forms.CharField(max_length=60, widget=forms.TextInput(attrs={
+        "class": "form-control",
+        "placeholder" : "Your post name"
+    })
+    )
+    body = forms.CharField(widget=forms.Textarea(
+        attrs={
+        "class": "form-control",
+        "placeholder": "Create your post!"
+    })
+    )
+
+        
 
 # Form for commenting on a blog post.
 class comment_form(forms.Form): 

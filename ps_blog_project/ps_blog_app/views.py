@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from ps_blog_app.models import category, blog_post, comment, User
-from ps_blog_app.forms import comment_form, UserProfileInfoForm, login_form
+from ps_blog_app.forms import comment_form, UserProfileInfoForm, login_form, create_blog_form
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -48,8 +48,7 @@ def login_page(request):
     elif logged_in == False and request.method != 'POST':
         return render(request, 'ps_blog_app/login.html', {'login_form':logged_in_form, 'logged_in':logged_in})
 
-    else:
-        logged_in = True 
+    else: 
         return render(request, 'ps_blog_app/login.html', {'login_form':logged_in_form, 'logged_in':logged_in})
 
 @login_required
@@ -129,3 +128,24 @@ def blog_detail(request, pk):
     }
     return render(request, 'ps_blog_app/blog_detail.html', context)
 
+@login_required
+def create_blog(request): 
+    categories = category.objects.all()
+    blog_post_form = create_blog_form()
+    if request.method == 'POST':
+        blog_post_form = create_blog_form(request.POST)
+        
+        if blog_post_form.is_valid():         
+            new_post = blog_post(
+                title=blog_post_form.cleaned_data["title"],
+                body=blog_post_form.cleaned_data["body"],
+            ) 
+            #new_post.author = user.username
+            new_post.save()
+            return HttpResponseRedirect(reverse('blog_index'))
+    
+    context = {
+        "categories" : categories,
+        "blog_form" : blog_post_form,
+    }
+    return render(request, 'ps_blog_app/create_blog.html', context)

@@ -7,6 +7,9 @@
         <hr>
     </div>
 </div>
+{% if logged_in_form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
 
     <form action="{% url 'login' %}" method='post'>
         {% csrf_token %}

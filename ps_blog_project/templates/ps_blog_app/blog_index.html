@@ -3,7 +3,7 @@
 {% block body_block %}
 <div class='container'>
   <div class='row'>
-<div class='col-sm-4 col-md-8 col-lg-12'>
+<div class='col-sm-12 col-md-12 col-lg-12 col-xs-12'>
     <h1 id='blog_index_header'>ps blogs</h1>
     
     <hr>
@@ -22,5 +22,7 @@
     <!-- slice is a django template filter that will cut off the post body at 400 chars. -->
     <p>{{ post.body | slice:":400" }}...</p>
     {% endfor %}
+</div>
+</div>
 </div>
 {% endblock %}
