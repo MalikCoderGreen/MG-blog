@@ -3,8 +3,8 @@ from ps_blog_app.models import UserProfileInfo, blog_post
 from django.contrib.auth.models import User
 
 
-# To allow registered users to create a post. 
-class create_blog_form(forms.Form): 
+# To allow registered users to create a post.
+class create_blog_form(forms.Form):
     title = forms.CharField(max_length=60, widget=forms.TextInput(attrs={
         "class": "form-control",
         "placeholder" : "Your post name"
@@ -17,10 +17,10 @@ class create_blog_form(forms.Form):
     })
     )
 
-        
+
 
 # Form for commenting on a blog post.
-class comment_form(forms.Form): 
+class comment_form(forms.Form):
     author = forms.CharField(max_length=60, widget=forms.TextInput(attrs={
         "class": "form-control",
         "placeholder" : "Your name"
@@ -34,8 +34,17 @@ class comment_form(forms.Form):
     )
 
 # Login form for login.html.
-class login_form(forms.Form): 
-    
+class login_form(forms.Form):
+    username = forms.CharField(widget=forms.TextInput())
+    password = forms.CharField(widget=forms.PasswordInput())
+
+    class Meta():
+        model = User
+        fields = ('username','email','password')
+   
+   
+   
+    """
     user_name = forms.CharField(max_length=60, widget=forms.TextInput(attrs={
         "class" : "form-control",
         "placeholder" : "username",
@@ -43,41 +52,43 @@ class login_form(forms.Form):
 
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         "class" : "form-control",
-        
-    }), label='password')
 
-     
+    }), label='password')
+    """
+
 
 # User profile form for registration page.
-class UserProfileInfoForm(forms.ModelForm): 
-    password = forms.CharField(widget=forms.PasswordInput(attrs={
-        "class" : "form-control",
-    }), label='password')
+class UserProfileInfoForm(forms.ModelForm):
+    #password = forms.CharField(widget=forms.PasswordInput(attrs={
+    #    "class" : "form-control",
+    #}), label='password')
 
-    class Meta(): 
+    class Meta():
         model = User
         help_texts = {
             'username' : None,
         }
 
-    
-        fields = ('username', 'email')
+
+        fields = ('username', 'email', 'password')
         widgets = {
             'username' : forms.TextInput(attrs={
-                'class' : u'form-control',   
+                'class' : u'form-control',
             }),
 
             'email' : forms.TextInput(attrs={
                 'class' : u'form-control',
-            }) 
-        
+            }),
+
+            'password' : forms.PasswordInput(attrs={
+                'class' : u'form-control',
+            })
+
         }
 
-        
+
         labels = {
             'username' : 'username',
             'email' : 'email',
             'password' : 'password',
         }
-        
-        

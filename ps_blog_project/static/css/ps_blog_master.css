@@ -4,16 +4,35 @@
 
 
 #blog_index_header, #category_header, #register_header{
-    color: #2995e2;
+    color: #3be229;
+    font-family: 'Orbitron', sans-serif;
+    font-style: italic;
+    font-weight: 700;
 }
 
 #upcoming_header{
-    color: #2995e2;
+    color: #3be229;
+    font-family: 'Orbitron', sans-serif;
+    font-style: italic;
+    font-weight: 700;
 }
 
+#mg_brand{
+    color: #ffffff;
+    font-family: 'Orbitron', sans-serif;
+    font-style: italic;
+    font-weight: 700;
+}
+
+.nav-link{
+    color: #ffffff;
+    font-family: 'Orbitron', sans-serif;
+    font-style: italic;
+    font-weight: 700;
+}
 /*
 login.html
 */
-#log_out{
+#log_out, #home_link, #upcoming_link{
     color: white;
 }
