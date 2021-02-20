@@ -1,4 +1,4 @@
-# PS-blog
+# MG-blog
 Custom blog I created in Django framework
 This is a sample gaming blog that I am currently developing right now. I am hosting it currently up on pythonanywhere at the URL: 
 malikcodergreen.pythonanywhere.com
